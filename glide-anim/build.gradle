@@ -5,14 +5,18 @@ plugins {
 }
 
 android {
-    namespace 'com.allo.view.glide.anim'
+//    namespace 'com.allo.view.glide.anim'
 
-    compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
+    compileSdkVersion 33
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        minSdk Integer.parseInt(MIN_SDK_VERSION)
-        targetSdk Integer.parseInt(TARGET_SDK_VERSION)
-        consumerProguardFiles 'consumer-rules.pro'
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0.0"
+
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     compileOptions {
@@ -31,18 +35,21 @@ android {
 
     lintOptions {
         abortOnError false
+        //解决 Errors while building APK.
+        checkReleaseBuilds false
     }
 
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-//            withJavadocJar()
-        }
-    }
+//    publishing {
+//        singleVariant("release") {
+//            withSourcesJar()
+////            withJavadocJar()
+//        }
+//    }
 }
-kotlin {
-    jvmToolchain(8)
-}
+
+//kotlin {
+//    jvmToolchain(8)
+//}
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.21'
@@ -51,7 +58,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     kapt 'com.github.bumptech.glide:compiler:4.13.2'
 
-    implementation('com.squareup.wire:wire-runtime:2.3.0-RC1'){
+    implementation('com.squareup.wire:wire-runtime:2.3.0-RC1') {
         exclude module: 'okhttp'
     }
     implementation 'com.github.yyued:SVGAPlayer-Android:2.6.1'
