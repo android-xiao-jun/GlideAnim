@@ -19,9 +19,6 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url = uri("${rootDir}/repo")
-        }
         mavenLocal()
         gradlePluginPortal()
         mavenCentral()
@@ -30,6 +27,9 @@ allprojects {
         maven {
             setUrl("repo")
         }
+//        maven {
+//            url = uri("${rootDir}/repo")
+//        }
     }
 }
 
