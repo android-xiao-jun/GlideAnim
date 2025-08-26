@@ -23,5 +23,5 @@
 //    }
 //}
 
-include ':app'
+//include ':app'
 include ':glide-anim'
