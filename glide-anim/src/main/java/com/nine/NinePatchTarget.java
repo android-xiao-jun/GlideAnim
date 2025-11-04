@@ -55,6 +55,18 @@ public class NinePatchTarget extends CustomTarget<File> {
     }
 
     @Override
+    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+        super.onLoadFailed(errorDrawable);
+        imageView.setBackground(errorDrawable);
+    }
+
+    @Override
+    public void onLoadStarted(@Nullable Drawable placeholder) {
+        super.onLoadStarted(placeholder);
+        imageView.setBackground(placeholder);
+    }
+
+    @Override
     public void onLoadCleared(@Nullable Drawable placeholder) {}
 
     /**
