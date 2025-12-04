@@ -23,13 +23,14 @@ afterEvaluate { project ->
                 groupId = GROUP
                 artifactId = POM_ARTIFACT_ID
                 version = VERSION_NAME
-                afterEvaluate {
-                    if (plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')) {
-                        from components.release
-                    } else if (plugins.hasPlugin("java")) {
-                        from components.java
-                    }
-                }
+//                afterEvaluate {
+//                    if (plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')) {
+//                        from components.release
+//                    } else if (plugins.hasPlugin("java")) {
+//                        from components.java
+//                    }
+//                }
+                from components.getByName("release")
                 repositories {
                     maven {
                         url = "${rootProject.rootDir}/repo"
