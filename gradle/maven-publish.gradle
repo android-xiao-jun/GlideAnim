@@ -46,6 +46,7 @@ afterEvaluate { project ->
         }
     }
 
+    /*
     if (plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')) {
         task androidJavadocs(type: Javadoc) {
             failOnError false
@@ -95,4 +96,5 @@ afterEvaluate { project ->
             archives javadocJar
         }
     }
+    */
 }

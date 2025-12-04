@@ -13,18 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class NinePatchTarget extends CustomTarget<File> {
+public class NinePatchTarget extends CustomViewTarget<View,File> {
 
     private final Context context;
     private final View imageView;
 
     public NinePatchTarget(View imageView) {
+        super(imageView);
         this.context = imageView.getContext();
         this.imageView = imageView;
     }
@@ -33,6 +35,7 @@ public class NinePatchTarget extends CustomTarget<File> {
     public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
         try (InputStream is = new FileInputStream(resource)) {
             Bitmap bitmap = BitmapFactory.decodeStream(is);
+            bitmap.setDensity(android.util.DisplayMetrics.DENSITY_XXHIGH);
             byte[] chunk = bitmap.getNinePatchChunk();
             if (NinePatch.isNinePatchChunk(chunk)) {
                 NinePatchChunk deserialize = NinePatchChunk.deserialize(chunk);
@@ -56,18 +59,19 @@ public class NinePatchTarget extends CustomTarget<File> {
 
     @Override
     public void onLoadFailed(@Nullable Drawable errorDrawable) {
-        super.onLoadFailed(errorDrawable);
         imageView.setBackground(errorDrawable);
     }
 
     @Override
-    public void onLoadStarted(@Nullable Drawable placeholder) {
-        super.onLoadStarted(placeholder);
+    protected void onResourceLoading(@Nullable Drawable placeholder) {
+        super.onResourceLoading(placeholder);
         imageView.setBackground(placeholder);
     }
 
     @Override
-    public void onLoadCleared(@Nullable Drawable placeholder) {}
+    protected void onResourceCleared(@Nullable Drawable placeholder) {
+
+    }
 
     /**
      * 图片加载完成回调
