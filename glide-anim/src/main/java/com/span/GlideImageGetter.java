@@ -50,7 +50,7 @@ public class GlideImageGetter implements Html.ImageGetter {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, Transition<? super Bitmap> transition) {
                         BitmapDrawable drawable = new BitmapDrawable(context.getResources(), resource);
-                        drawable.setBounds(0, 0, width, height);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                         urlDrawable.setDrawable(drawable);
                         TextView textView = weakReferenceTextView.get();
                         if (textView!=null){
