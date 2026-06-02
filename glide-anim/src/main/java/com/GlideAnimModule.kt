@@ -17,6 +17,8 @@ import com.github.penfeizhou.animation.glide.ByteBufferAnimationDecoder
 import com.github.penfeizhou.animation.glide.FrameBitmapTranscoder
 import com.github.penfeizhou.animation.glide.FrameDrawableTranscoder
 import com.github.penfeizhou.animation.glide.StreamAnimationDecoder
+import com.nine.NinePatchResource
+import com.nine.NinePatchStreamDecoder
 import com.opensource.svgaplayer.SVGACache
 import com.opensource.svgaplayer.SVGADrawable
 import com.opensource.svgaplayer.SVGAVideoEntity
@@ -88,6 +90,14 @@ class GlideAnimModule : LibraryGlideModule() {
         registry.register(
             FrameSeqDecoder::class.java,
             Bitmap::class.java, FrameBitmapTranscoder(glide.bitmapPool)
+        )
+
+        // 注册 .9 图解码器：将网络/本地图片流解码为可被 Glide 内存/磁盘缓存的 NinePatchResource，
+        // 后续相同 URL 直接命中缓存，避免每次重复读取文件与解码 chunk。
+        registry.prepend(
+            InputStream::class.java,
+            NinePatchResource::class.java,
+            NinePatchStreamDecoder()
         )
     }
 
